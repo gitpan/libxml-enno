@@ -1,6 +1,6 @@
 use ExtUtils::MakeMaker;
 
-$VERSION = '1.03';
+$VERSION = '1.05';
 
 sub MY::libscan
 {

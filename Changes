@@ -6,6 +6,13 @@ Change History for libxml-enno:
   See Changes.DOM, Changes.XQL and Changes.Checker for the change history prior
   to libxml-enno 1.00.
 
+1.05 (tjmather)
+
+- DOM: Fixed XML/DOM.pm to include forward declaration for
+  XML::DOM::DocumentType (Oleh Khoma and Wolfgang Gassner)
+- XQL: Fixed XML/XQL/Query.pod to include use XML::XQL::DOM; in Synopsis
+  (Gene Dascher)
+
 1.04 (tjmather)
 
 - CHK: Fixed bug in XML::Checker::Parser with the setting 

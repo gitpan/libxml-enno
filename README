@@ -126,7 +126,3 @@ XML::Handler::PrintEvents - Prints all PerlSAX events it receives to stdout.
 			Useful when debugging PerlSAX event filters/producers. 
 --------------------------------------------------------------------------------
 
-Have fun!
-
-Enno Derksen
-enno@att.com

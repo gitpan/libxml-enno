@@ -38,7 +38,7 @@ use XML::RegExp;
 BEGIN
 {
     require XML::Parser;
-    $VERSION = '1.28';
+    $VERSION = '1.29';
 
     my $needVersion = '2.28';
     die "need at least XML::Parser version $needVersion (current=${XML::Parser::VERSION})"
@@ -3369,6 +3369,10 @@ sub isDocumentFragmentNode
 }
 
 ######################################################################
+package XML::DOM::DocumentType;		# forward declaration
+######################################################################
+
+######################################################################
 package XML::DOM::Document;
 ######################################################################
 use vars qw{ @ISA @EXPORT_OK %EXPORT_TAGS %HFIELDS };
@@ -4859,7 +4863,7 @@ to support the 4 added node classes.
 =item $VERSION
 
 The variable $XML::DOM::VERSION contains the version number of this 
-implementation, e.g. "1.28".
+implementation, e.g. "1.29".
 
 =back
 

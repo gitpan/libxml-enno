@@ -5,6 +5,7 @@ XML::XQL::Query - Creates an XQL query evaluater from a XQL expression
 =head1 SYNOPSIS
 
  use XML::XQL;
+ use XML::XQL::DOM;
 
  $parser = new XML::DOM::Parser;
  $doc = $parser->parsefile ("file.xml");

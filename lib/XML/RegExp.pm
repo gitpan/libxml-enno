@@ -74,4 +74,6 @@ NCNameChar, NCName, QName, Prefix and LocalPart.
 
 =head1 AUTHOR
 
-Please send bugs, comments and suggestions to Enno Derksen <F<enno@att.com>>
+Original Author is Enno Derksen <F<enno@att.com>>
+
+Please send bugs, comments and suggestions to T.J. Mather <F<tjmather@tjmather.com>>
