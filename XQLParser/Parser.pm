@@ -1,12 +1,12 @@
-#########################################################################
+####################################################################
 #
-#      This file was generated using Parse::Yapp version 0.16.
+#    This file was generated using Parse::Yapp version 1.03.
 #
-#          Don't edit this file, use source file instead.
+#        Don't edit this file, use source file instead.
 #
-#               ANY CHANGE MADE HERE WILL BE LOST !
+#             ANY CHANGE MADE HERE WILL BE LOST !
 #
-#########################################################################
+####################################################################
 package XML::XQL::Parser;
 use vars qw ( @ISA );
 use strict;
@@ -21,7 +21,7 @@ sub new {
         ref($class)
     and $class=ref($class);
 
-    my($self)=$class->SUPER::new( yyversion => '0.16',
+    my($self)=$class->SUPER::new( yyversion => '1.03',
                                   yystates =>
 [
 	{#State 0
@@ -1067,85 +1067,85 @@ sub new {
 	],
 	[#Rule 4
 		 'WildQName', 1,
-sub {
- [ Name => $_[1] ]; 
-}
+sub
+#line 24 "Parser.yp"
+{ [ Name => $_[1] ]; }
 	],
 	[#Rule 5
 		 'WildQName', 3,
-sub {
- 
-			[ NameSpace => $_[1], Name => $_[2]]; 
-}
+sub
+#line 25 "Parser.yp"
+{ 
+			[ NameSpace => $_[1], Name => $_[2]]; }
 	],
 	[#Rule 6
 		 'Param', 1, undef
 	],
 	[#Rule 7
 		 'Param', 1,
-sub {
- new XML::XQL::Number ($_[1]); 
-}
+sub
+#line 30 "Parser.yp"
+{ new XML::XQL::Number ($_[1]); }
 	],
 	[#Rule 8
 		 'Param', 1,
-sub {
- new XML::XQL::Number ($_[1]); 
-}
+sub
+#line 31 "Parser.yp"
+{ new XML::XQL::Number ($_[1]); }
 	],
 	[#Rule 9
 		 'Param', 1,
-sub {
- new XML::XQL::Text ($_[1]); 
-}
+sub
+#line 32 "Parser.yp"
+{ new XML::XQL::Text ($_[1]); }
 	],
 	[#Rule 10
 		 'ElementName', 1,
-sub {
- new XML::XQL::Element (@{$_[1]}); 
-}
+sub
+#line 35 "Parser.yp"
+{ new XML::XQL::Element (@{$_[1]}); }
 	],
 	[#Rule 11
 		 'AttributeName', 2,
-sub {
- new XML::XQL::Attribute (@{$_[2]}); 
-}
+sub
+#line 38 "Parser.yp"
+{ new XML::XQL::Attribute (@{$_[2]}); }
 	],
 	[#Rule 12
 		 'Invocation', 2,
-sub {
-
+sub
+#line 41 "Parser.yp"
+{
 			my ($func, $type) = $_[0]->{Query}->findFunctionOrMethod ($_[1], $_[2]);
 
 			new XML::XQL::Invocation (Name => $_[1], 
 						  Args => $_[2],
 						  Func => $func,
-						  Type => $type); 
-}
+						  Type => $type); }
 	],
 	[#Rule 13
 		 'Invocation_2', 1,
-sub {
- [] 
-}
+sub
+#line 50 "Parser.yp"
+{ [] }
 	],
 	[#Rule 14
 		 'Invocation_2', 3,
-sub {
- unshift @{$_[2]}, $_[1]; $_[2]; 
-}
+sub
+#line 51 "Parser.yp"
+{ unshift @{$_[2]}, $_[1]; $_[2]; }
 	],
 	[#Rule 15
 		 'Invocation_3', 0,
-sub {
- [] 
-}
+sub
+#line 54 "Parser.yp"
+{ [] }
 	],
 	[#Rule 16
 		 'Invocation_3', 3,
-sub {
- unshift @{$_[3]}, $_[2]; $_[3]; 
-}
+sub
+#line 55 "Parser.yp"
+{ unshift @{$_[3]}, $_[2]; $_[3]; }
 	],
 	[#Rule 17
 		 'PathOp', 1, undef
@@ -1158,104 +1158,104 @@ sub {
 	],
 	[#Rule 20
 		 'Sequence', 3,
-sub {
-
+sub
+#line 62 "Parser.yp"
+{
 		    new XML::XQL::Sequence (Left => $_[1], Oper => $_[2], 
-					    Right => $_[3]); 
-}
+					    Right => $_[3]); }
 	],
 	[#Rule 21
 		 'Disjunction', 1, undef
 	],
 	[#Rule 22
 		 'Disjunction', 3,
-sub {
- 
-		    new XML::XQL::Or (Left => $_[1], Right => $_[3]); 
-}
+sub
+#line 68 "Parser.yp"
+{ 
+		    new XML::XQL::Or (Left => $_[1], Right => $_[3]); }
 	],
 	[#Rule 23
 		 'Conjunction', 1, undef
 	],
 	[#Rule 24
 		 'Conjunction', 3,
-sub {
- 
-		    new XML::XQL::And (Left => $_[1], Right => $_[3]); 
-}
+sub
+#line 73 "Parser.yp"
+{ 
+		    new XML::XQL::And (Left => $_[1], Right => $_[3]); }
 	],
 	[#Rule 25
 		 'Negation', 1, undef
 	],
 	[#Rule 26
 		 'Negation', 2,
-sub {
- new XML::XQL::Not (Left => $_[2]); 
-}
+sub
+#line 78 "Parser.yp"
+{ new XML::XQL::Not (Left => $_[2]); }
 	],
 	[#Rule 27
 		 'Union', 1, undef
 	],
 	[#Rule 28
 		 'Union', 3,
-sub {
- 
-		    new XML::XQL::Union (Left => $_[1], Right => $_[3]); 
-}
+sub
+#line 82 "Parser.yp"
+{ 
+		    new XML::XQL::Union (Left => $_[1], Right => $_[3]); }
 	],
 	[#Rule 29
 		 'Intersection', 1, undef
 	],
 	[#Rule 30
 		 'Intersection', 3,
-sub {
- 
-		    new XML::XQL::Intersect ($_[1], $_[3]); 
-}
+sub
+#line 87 "Parser.yp"
+{ 
+		    new XML::XQL::Intersect (Left => $_[1], Right => $_[3]); }
 	],
 	[#Rule 31
 		 'ComparisonOp', 1,
-sub {
-
-		  [ $_[1], $_[0]->{Query}->findComparisonOperator ($_[1]) ]; 
-}
+sub
+#line 91 "Parser.yp"
+{
+		  [ $_[1], $_[0]->{Query}->findComparisonOperator ($_[1]) ]; }
 	],
 	[#Rule 32
 		 'ComparisonOp', 1,
-sub {
-
-		  [ $_[1], $_[0]->{Query}->findComparisonOperator ($_[1]) ]; 
-}
+sub
+#line 93 "Parser.yp"
+{
+		  [ $_[1], $_[0]->{Query}->findComparisonOperator ($_[1]) ]; }
 	],
 	[#Rule 33
 		 'Comparison', 1, undef
 	],
 	[#Rule 34
 		 'Comparison', 3,
-sub {
-
+sub
+#line 98 "Parser.yp"
+{
 			new XML::XQL::Compare (All => 0, Left => $_[1], 
 				Oper => $_[2]->[0], Func => $_[2]->[1], 
-				Right => $_[3]); 
-}
+				Right => $_[3]); }
 	],
 	[#Rule 35
 		 'Comparison', 4,
-sub {
-
+sub
+#line 102 "Parser.yp"
+{
 			new XML::XQL::Compare (All => 0, Left => $_[2], 
-				Oper => $_[3]->[0], Func => $_[3]->[0],
-				Right => $_[4]); 
-}
+				Oper => $_[3]->[0], Func => $_[3]->[1],
+				Right => $_[4]); }
 	],
 	[#Rule 36
 		 'Comparison', 4,
-sub {
-
+sub
+#line 106 "Parser.yp"
+{
 			new XML::XQL::Compare (All => 1, Left => $_[2], 
-				Oper => $_[3]->[0], Func => $_[3]->[0],
-				Right => $_[4]); 
-}
+				Oper => $_[3]->[0], Func => $_[3]->[1],
+				Right => $_[4]); }
 	],
 	[#Rule 37
 		 'LValue', 1, undef
@@ -1265,21 +1265,21 @@ sub {
 	],
 	[#Rule 39
 		 'RValue', 1,
-sub {
- new XML::XQL::Number ($_[1]); 
-}
+sub
+#line 116 "Parser.yp"
+{ new XML::XQL::Number ($_[1]); }
 	],
 	[#Rule 40
 		 'RValue', 1,
-sub {
- new XML::XQL::Number ($_[1]); 
-}
+sub
+#line 117 "Parser.yp"
+{ new XML::XQL::Number ($_[1]); }
 	],
 	[#Rule 41
 		 'RValue', 1,
-sub {
- new XML::XQL::Text ($_[1]); 
-}
+sub
+#line 118 "Parser.yp"
+{ new XML::XQL::Text ($_[1]); }
 	],
 	[#Rule 42
 		 'Path', 1, undef
@@ -1289,91 +1289,92 @@ sub {
 	],
 	[#Rule 44
 		 'AbsolutePath', 1,
-sub {
- new XML::Root; 
-}
+sub
+#line 124 "Parser.yp"
+{ new XML::Root; }
 	],
 	[#Rule 45
 		 'AbsolutePath', 2,
-sub {
- 
-		    new XML::XQL::Path (PathOp => $_[1], Right => $_[2]); 
-}
+sub
+#line 125 "Parser.yp"
+{ 
+		    new XML::XQL::Path (PathOp => $_[1], Right => $_[2]); }
 	],
 	[#Rule 46
 		 'RelativePath', 1, undef
 	],
 	[#Rule 47
 		 'RelativePath', 3,
-sub {
- 
+sub
+#line 130 "Parser.yp"
+{ 
 		    new XML::XQL::Path (Left => $_[1], PathOp => $_[2], 
-				        Right => $_[3]); 
-}
+				        Right => $_[3]); }
 	],
 	[#Rule 48
 		 'Bang', 1, undef
 	],
 	[#Rule 49
 		 'Bang', 3,
-sub {
-
+sub
+#line 136 "Parser.yp"
+{
 		    XML::XQL::parseError ("only methods (not functions) can be used after the Bang (near '!" . $_[3]->{Name} . "'")
 			unless $_[3]->isMethod;
 
 		    new XML::XQL::Bang (Left => $_[1], 
-				        Right => $_[3]); 
-}
+				        Right => $_[3]); }
 	],
 	[#Rule 50
 		 'Subscript', 2,
-sub {
- 
+sub
+#line 144 "Parser.yp"
+{ 
 		    defined($_[2]) ? 
 			new XML::XQL::Subscript (Left => $_[1], 
-					    IndexList => $_[2]) : $_[1]; 
-}
+					    IndexList => $_[2]) : $_[1]; }
 	],
 	[#Rule 51
 		 'Subscript_2', 0, undef
 	],
 	[#Rule 52
 		 'Subscript_2', 3,
-sub {
- $_[2]; 
-}
+sub
+#line 151 "Parser.yp"
+{ $_[2]; }
 	],
 	[#Rule 53
 		 'IndexList', 2,
-sub {
- push (@{$_[1]}, @{$_[2]}); $_[1]; 
-}
+sub
+#line 156 "Parser.yp"
+{ push (@{$_[1]}, @{$_[2]}); $_[1]; }
 	],
 	[#Rule 54
 		 'IndexList_2', 0,
-sub {
- [] 
-}
+sub
+#line 159 "Parser.yp"
+{ [] }
 	],
 	[#Rule 55
 		 'IndexList_2', 3,
-sub {
- push (@{$_[2]}, @{$_[3]}); $_[2]; 
-}
+sub
+#line 160 "Parser.yp"
+{ push (@{$_[2]}, @{$_[3]}); $_[2]; }
 	],
 	[#Rule 56
 		 'IndexArg', 1,
-sub {
- [ $_[1], $_[1] ]; 
-}
+sub
+#line 163 "Parser.yp"
+{ [ $_[1], $_[1] ]; }
 	],
 	[#Rule 57
 		 'IndexArg', 1, undef
 	],
 	[#Rule 58
 		 'Range', 3,
-sub {
-
+sub
+#line 167 "Parser.yp"
+{
 		    # Syntactic Constraint 9:
 		    # If both integers are positive or if both integers are 
 		    # negative, the first integer must be less than or
@@ -1382,18 +1383,17 @@ sub {
 		    XML::XQL::parseError (
 			"$_[1] should be less than $_[3] in '$_[1] $_[2] $_[3]'")
 				if ($_[1] > $_[3] && ($_[1] < 0) == ($_[3] < 0));
-		    [ $_[1], $_[3] ]; 
-}
+		    [ $_[1], $_[3] ]; }
 	],
 	[#Rule 59
 		 'Filter', 1, undef
 	],
 	[#Rule 60
 		 'Filter', 4,
-sub {
- 
-			new XML::XQL::Filter (Left => $_[1], Right => $_[3]); 
-}
+sub
+#line 180 "Parser.yp"
+{ 
+			new XML::XQL::Filter (Left => $_[1], Right => $_[3]); }
 	],
 	[#Rule 61
 		 'Subquery', 1, undef
@@ -1403,21 +1403,21 @@ sub {
 	],
 	[#Rule 63
 		 'Grouping', 3,
-sub {
- $_[2]; 
-}
+sub
+#line 189 "Parser.yp"
+{ $_[2]; }
 	],
 	[#Rule 64
 		 'RelativeTerm', 1,
-sub {
- new XML::XQL::Current; 
-}
+sub
+#line 192 "Parser.yp"
+{ new XML::XQL::Current; }
 	],
 	[#Rule 65
 		 'RelativeTerm', 1,
-sub {
- new XML::XQL::Parent; 
-}
+sub
+#line 193 "Parser.yp"
+{ new XML::XQL::Parent; }
 	],
 	[#Rule 66
 		 'RelativeTerm', 1, undef
@@ -1433,6 +1433,7 @@ sub {
     bless($self,$class);
 }
 
+#line 199 "Parser.yp"
 
 
 1;

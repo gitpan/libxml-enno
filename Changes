@@ -6,7 +6,60 @@ Change History for libxml-enno:
   See Changes.DOM, Changes.XQL and Changes.Checker for the change history prior
   to libxml-enno 1.00.
 
-1.02 (enno)
+1.04 (tjmather)
+
+- CHK: Fixed bug in XML::Checker::Parser with the setting 
+  @InterceptedHandlers (William Horka)
+- CHK: Fixed errors in test case t/chk_batch.t.  Most had to do with change
+  from "well-formed" to "well-formed (invalid token)" in error message.
+  Also, the tests in chk_batch.t for the xml file attr3 did not return any
+  errors any more, since XML::Parser >= 2.28 doesn't seem to call the entity
+  handler more than once if a entity is repeated.
+- CHK: Updated t/chk_batch.t to be independent of the order of the error
+  messages generated.  This is because the order of the error messages
+  seems to be dependent on the version of perl used (e.g. 5.005 vs. 5.6.0).
+- DOM: Fixed XML::DOM::DocumentType::replaceChild to call
+  SUPER::replaceChild instead of SUPER::appendChild (John Salmon)
+- DOM: Fixed XML::DOM::Text::splitText to use substr instead of 
+  (non-existant) substring and insertBefore instead of (non-existant)
+  insertAfter (Duncan Cameron)
+- DOM: Fixed XML::DOM::Text::print to encode '>' and '"' (John Cope)
+- DOM: Added code to convert Model argument of XML::Parser::Dom::Element
+  from XML::Parser::ContentModel to string.  XML::Parser >= 2.28 passes
+  a XML::Parser::ContentModel object for the model arg of the Element handler
+  while earlier versions passed a string.  Fixed cannot find equals
+  method in XML::Parser::ContentModel in dom_extent.t.
+- DOM: Updated XML::DOM::Entity and XML::Parser::Dom::Entity to reflect
+  new Entity handler API in XML::Parser >= 2.28.  There is a new isParam
+  parameter and the name no longer starts with '%' if it is a parameter
+  entity.
+- DOM: Fixed errors in test cases t/build_dom.t t/dom_attr.t by changing
+  hair (none | blue | yellow) "yellow" to hair (none|blue|yellow) 'yellow'
+  Also fixed t/dom_jp_attr by changing equivilent japenese text.
+- DOM: Fixed errors in test cases t/dom_print.t and t/dom_jp_print.t
+  by changing <!ELEMENT doc (beavis | butthead)*> to
+  <!ELEMENT doc (beavis|butthead)*>
+- DOM: Fixed error in test 3 of t/dom_jp_attr.t under Perl 5.6.0
+  by changing $FILE->print("$name $type") in XML::DOM::AttDef::print.
+- XQL: Updated XQLParser/Makefile.PL to use yapp instead of yapp.pl
+  since yapp.pl was renamed to yapp starting with Parse::Yapp 0.30.
+  This fixed a problem where it mangled XML/XQL/Parser.pm if
+  Parse::Yapp >= 0.30 was installed.
+- XQL: Replaced '>' in __DATA__ section of t/xql_big.t with '&gt;'.
+
+1.03 (enno) (not released)
+- XQL: Fixed $intersect$ operator. It used to throw exception when parsing the XQL
+  expression. Something like "xql_check method not implemented".
+  (Thanks to Tatiana <tasc@lbd.dcc.ufmg.br>)
+- XQL: Fixed q// and qq// operators. Typo in RE caused them to be unrecognized
+  by the XQL expression parser.
+- XQL: Fixed 'any' and 'all' modifiers. Typos in Parser.yp caused them to fail.
+  (Thanks to James Curran <jcurran@staff.cs.usyd.edu.au>)
+- XQL: Fixed warning on Windows when using XML::XQL, related to tput.
+- CHK: Fixed errors in test case t/chk_batch.t for Windows. Most were related
+  to differences in newlines.
+
+1.02 (enno) 3/2/2000
 - This release fixes some installation related stuff.
 
 - Changed =head3 pod directives to =head2 in XML/Checker.pm

@@ -1,0 +1,44 @@
+*** lib/XML/Checker/Parser.pm   Mon Jan 31 11:53:25 2000
+--- lib/XML/Checker/Parser.pm.new       Thu Dec 21 13:55:28 2000
+***************
+*** 322,339 ****
+  sub setHandlers
+  {
+      my ($self, %h) = @_;
+ 
+      for my $name (@InterceptedHandlers)
+      {
+        if (exists $h{$name})
+        {
+!           eval "\$_$name = \$h{$name}";
+            delete $h{$name};
+        }
+      }
+ 
+      # Pass remaining handlers to the parent class (XML::Parser)
+!     $self->SUPER::setHandlers (%h);
+  }
+ 
+  # Add (line, column, byte) to error context (unless it's EOF)
+--- 322,342 ----
+  sub setHandlers
+  {
+      my ($self, %h) = @_;
++     my (%oldhandlers);
+ 
+      for my $name (@InterceptedHandlers)
+      {
+        if (exists $h{$name})
+        {
+!           $oldhandlers{$name} = $self->{UserHandlers}->{$name};
+!           $self->{UserHandlers}->{$name} = $h{$name};
+            delete $h{$name};
+        }
+      }
+ 
+      # Pass remaining handlers to the parent class (XML::Parser)
+!     # and return all modified handlers
+!     return (%oldhandlers, $self->SUPER::setHandlers (%h));
+  }
+ 
+  # Add (line, column, byte) to error context (unless it's EOF)

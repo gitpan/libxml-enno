@@ -322,18 +322,20 @@ sub Default
 sub setHandlers
 {
     my ($self, %h) = @_;
+    my (%oldhandlers);
 
     for my $name (@InterceptedHandlers)
     {
 	if (exists $h{$name})
 	{
-	    eval "\$_$name = \$h{$name}";
+	    $oldhandlers{$name} = $self->{UserHandlers}->{$name};
+	    $self->{UserHandlers}->{$name} = $h{$name};
 	    delete $h{$name};
 	}
     }
 
     # Pass remaining handlers to the parent class (XML::Parser)
-    $self->SUPER::setHandlers (%h);
+    return (%oldhandlers, $self->SUPER::setHandlers (%h));
 }
 
 # Add (line, column, byte) to error context (unless it's EOF)

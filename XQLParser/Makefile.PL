@@ -7,7 +7,7 @@ WriteMakefile(
 	      PM => { 'Parser.pm' => '$(INST_LIBDIR)/Parser.pm' },
 
 	      # Is this cheating or this this the only way to do it?
-	      # Note: yapp.pl comes with Parse::Yapp
-	      depend => { 'Parser.pm' => "Parser.yp\n\t\@\$(FULLPERL) \$(INSTALLBIN)/yapp.pl -m XML::XQL::Parser Parser.yp > Parser.pm"  },
+	      # Note: yapp comes with Parse::Yapp
+	      depend => { 'Parser.pm' => "Parser.yp\n\t\@\$(FULLPERL) \$(INSTALLBIN)/yapp -m XML::XQL::Parser Parser.yp > Parser.pm"  },
              );
 

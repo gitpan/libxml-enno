@@ -60,7 +60,7 @@ my $str = <<END;
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE 文書 [
  <!ENTITY はっ "あはははむは">
- <!ELEMENT 文書 (ビーバス | バットヘッド)*>
+ <!ELEMENT 文書 (ビーバス|バットヘッド)*>
  <!ELEMENT ビーバス (#PCDATA)>
  <!ELEMENT バットヘッド (#PCDATA)>
 ]>

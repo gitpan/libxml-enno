@@ -38,9 +38,9 @@ use XML::RegExp;
 BEGIN
 {
     require XML::Parser;
-    $VERSION = '1.27';
+    $VERSION = '1.28';
 
-    my $needVersion = '2.23';
+    my $needVersion = '2.28';
     die "need at least XML::Parser version $needVersion (current=${XML::Parser::VERSION})"
 	unless $XML::Parser::VERSION >= $needVersion;
 
@@ -1652,7 +1652,7 @@ use Carp;
 
 sub new
 {
-    my ($class, $doc, $par, $notationName, $value, $sysId, $pubId, $ndata, $hidden) = @_;
+    my ($class, $doc, $notationName, $value, $sysId, $pubId, $ndata, $isParam, $hidden) = @_;
 
     croak new XML::DOM::DOMException (INVALID_CHARACTER_ERR, 
 				      "bad Entity Name [$notationName]")
@@ -1662,7 +1662,7 @@ sub new
 
     $self->[_Doc] = $doc;
     $self->[_NotationName] = $notationName;
-    $self->[_Parameter] = $par;
+    $self->[_Parameter] = $isParam;
     $self->[_Value] = $value;
     $self->[_Ndata] = $ndata;
     $self->[_SysId] = $sysId;
@@ -1705,10 +1705,9 @@ sub getNodeName
 sub cloneNode
 {
     my $self = shift;
-    $self->[_Doc]->createEntity ($self->[_Parameter], 
-				 $self->[_NotationName], $self->[_Value], 
+    $self->[_Doc]->createEntity ($self->[_NotationName], $self->[_Value], 
 				 $self->[_SysId], $self->[_PubId], 
-				 $self->[_Ndata], $self->[_Hidden]);
+				 $self->[_Ndata], $self->[_Parameter], $self->[_Hidden]);
 }
 
 sub rejectChild
@@ -2054,7 +2053,13 @@ sub print
     my $fixed = $self->[_Fixed];
     my $default = $self->[_Default];
 
-    $FILE->print ("$name $type");
+#    $FILE->print ("$name $type");
+    # replaced line above with the two lines below
+    # seems to be a bug in perl 5.6.0 that causes
+    # test 3 of dom_jp_attr.t to fail?
+    $FILE->print ($name);
+    $FILE->print (" $type");
+
     $FILE->print (" #FIXED") if defined $fixed;
 
     if ($self->[_Required])
@@ -3112,13 +3117,13 @@ sub splitText
 				      "node is ReadOnly")
 	if $self->isReadOnly;
 
-    my $rest = substring ($data, $offset);
+    my $rest = substr ($data, $offset);
 
-    $self->setData (substring ($data, 0, $offset));
+    $self->setData (substr ($data, 0, $offset));
     my $node = $self->[_Doc]->createTextNode ($rest);
 
     # insert new node after this node
-    $self->[_Parent]->insertAfter ($node, $self);
+    $self->{Parent}->insertBefore ($node, $self->getNextSibling);
 
     $node;
 }
@@ -3140,7 +3145,7 @@ sub isReadOnly
 sub print
 {
     my ($self, $FILE) = @_;
-    $FILE->print (XML::DOM::encodeText ($self->getData, "<&"));
+    $FILE->print (XML::DOM::encodeText ($self->getData, '<&>"'));
 }
 
 sub isTextNode
@@ -3565,7 +3570,7 @@ sub replaceChild
 	croak new XML::DOM::DOMException (HIERARCHY_REQUEST_ERR,
 					  "document can have only one Element");
     }
-    $self->SUPER::appendChild ($node, $refNode);
+    $self->SUPER::replaceChild ($node, $refNode);
 }
 
 #------------------------------------------------------------
@@ -4508,12 +4513,9 @@ sub Entity
     my $expat = shift;
 #    deb ("Entity", @_);
     
-    # Parameter Entities names are passed starting with '%'
-    my $parameter = 0;
-    if ($_[0] =~ /^%(.*)/s)
+    # check to see if Parameter Entity
+    if ($_[5])
     {
-	$_[0] = $1;
-	$parameter = 1;
 
 	if (defined $_[2])	# was sysid specified?
 	{
@@ -4535,8 +4537,8 @@ sub Entity
 
     undef $_DP_last_text;
 
-    $_[5] = "Hidden" unless $_DP_expand_pent || $_DP_level == 0;
-    $_DP_doctype->addEntity ($parameter, @_);
+    $_[6] = "Hidden" unless $_DP_expand_pent || $_DP_level == 0;
+    $_DP_doctype->addEntity (@_);
 }
 
 #
@@ -4553,6 +4555,11 @@ sub Element
 {
     shift;
 #    deb ("Element", @_);
+
+    # put in to convert XML::Parser::ContentModel object to string
+    # ($_[1] used to be a string in XML::Parser 2.27 and
+    # dom_attr.t fails if we don't stringify here)
+    $_[1] = "$_[1]";
 
     undef $_DP_last_text;
     push @_, "Hidden" unless $_DP_expand_pent || $_DP_level == 0;
@@ -4602,7 +4609,11 @@ sub Proc
 sub ExternEnt
 {
     my ($expat, $base, $sysid, $pubid) = @_;
-#    deb ("ExternEnt", @_);
+    deb ("ExternEnt", @_);
+
+    # ?? (tjmather) i think there is a problem here
+    # with XML::Parser > 2.27 since file_ext_ent_handler
+    # now returns a IO::File object instead of a content string
 
     # Invoke XML::Parser's default ExternEnt handler
     my $content;
@@ -4848,7 +4859,7 @@ to support the 4 added node classes.
 =item $VERSION
 
 The variable $XML::DOM::VERSION contains the version number of this 
-implementation, e.g. "1.07".
+implementation, e.g. "1.28".
 
 =back
 

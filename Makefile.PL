@@ -1,6 +1,6 @@
 use ExtUtils::MakeMaker;
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 sub MY::libscan
 {
@@ -21,7 +21,10 @@ sub MY::libscan
 WriteMakefile(
     NAME	=> 'libxml-enno',
     VERSION_FROM => 'Makefile.PL',
-    PREREQ_PM => { 'XML::Parser' => '2.19',
+                   # XML::Parser 2.28 and above work, but make test
+                   # doesn't pass because of different ways
+                   # errors are reported
+    PREREQ_PM => { 'XML::Parser' => '2.30',
 		   # Maybe requiring Date::Manip 5.33 is too strict,
 		   # it's what I was using. I know 5.20 doesn't work.
 		   # I also know that 5.36 works.

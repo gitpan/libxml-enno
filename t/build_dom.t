@@ -26,7 +26,7 @@ my $str = <<END;
  <!ELEMENT person (#PCDATA)>
  <!ATTLIST person
   name CDATA #REQUIRED
-  hair (none | blue | yellow) "yellow"
+  hair (none|blue|yellow) 'yellow'
   sex CDATA #REQUIRED>
 ]>
 <simpsons>
@@ -66,4 +66,5 @@ my $doc = $parser->parse ($str);
 
 my $out = $doc->toString;
 $out =~ tr/\012/\n/;
+print "out: $out --end\n\nstr: $str --end\n";
 assert_ok ($out eq $str);

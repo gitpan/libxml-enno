@@ -61,6 +61,20 @@ sub get_path_sep
     }
 }
 
+sub slurp
+{
+    my $file = shift;
+    local $/;          # slurp mode
+    open (FILE, $file) || die "can't read $file";
+    my $str = <FILE>;
+    close FILE;
+
+    # Normalize newlines to Unix style
+    $str =~ s/(\x0D\x0A|\x0D|\x0A)/\x0A/g;
+
+    return $str;
+}
+
 my $sep = get_path_sep();
 
 # chdir to the t/ subdirectory
@@ -145,6 +159,19 @@ sub same
 	# Normalize newlines to current platform
 	$str2 =~ s/(\x0D\x0A|\x0D|\x0A)/\n/g;
 
+	# Different XML::Parser versions generate different 'byte' numbers
+	# in their exceptions (e.g. some print 'byte -1' at the end of the
+	# XML file, others print e.g. 'byte 42'), so here we simply
+	# remove the byte number
+	$str =~ s/byte\s\-?\d+//g;
+	$str2 =~ s/byte\s\-?\d+//g;
+
+	# Depending on the version of Perl (e.g. 5.005 vs. 5.6.0),
+	# the order of the error messages is different, so here we
+	# re-order the lines in alphabetical order
+	$str = join("\n", sort split("\n",$str));
+	$str2 = join("\n", sort split("\n",$str2));
+
 	if ($opt_o)
 	{
 	    print $str;
@@ -201,7 +228,7 @@ sub cp
     my $parser = new XML::Checker::Parser;
     eval
     {
-	$parser->parsefile ("$xml.xml");
+	$parser->parse (slurp("$xml.xml"));
     };
     if ($@)
     {
@@ -226,7 +253,7 @@ sub dc
     my $parser = new XML::DOM::Parser;	# could pass options!
     eval
     {
-	my $doc = $parser->parsefile ("$xml.xml");
+	my $doc = $parser->parse (slurp("$xml.xml"));
 	$doc->check;	# could pass Checker with options!
 	$doc->dispose;
     };
@@ -252,7 +279,7 @@ sub dv
     my $parser = new XML::DOM::ValParser;	# could pass options!
     eval
     {
-	my $doc = $parser->parsefile ("$xml.xml");
+	my $doc = $parser->parse (slurp("$xml.xml"));
 	$doc->dispose;
     };
     if ($@)

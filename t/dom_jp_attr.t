@@ -74,7 +74,7 @@ my $str = <<END;
  <!ELEMENT 人物 (#PCDATA)>
  <!ATTLIST 人物
   名前 CDATA #REQUIRED
-  髪 (なし | 青色 | 黄色) "黄色"
+  髪 (なし|青色|黄色) '黄色'
   性別 CDATA #REQUIRED>
 ]>
 <シンプソンズ>

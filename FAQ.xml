@@ -31,6 +31,20 @@ function, otherwise ignore the errors.
   <topic>
    <question>
 
+'make test' error in t/dom_extent.t
+
+   </question>
+   <answer>
+
+The error is related to external entity support in XML::Parser, which (I believe) was added in
+XML::Parser 2.27. Upgrade to 2.27 or ignore the error.
+
+   </answer>
+  </topic>
+
+  <topic>
+   <question>
+
 'unrecognized pod directive in ...: head3' warnings in 'make install'
 
    </question>

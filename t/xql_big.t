@@ -62,7 +62,7 @@ surrogate blocks, FFFE, and FFFF.</com> </prod>
 <prod id="NT-GEDecl"><lhs>GEDecl</lhs>
 <rhs>'&lt;!ENTITY' <nt def="NT-S">S</nt> <nt def="NT-Name">Name</nt> 
 <nt def="NT-S">S</nt> <nt def="NT-EntityDef">EntityDef</nt> 
-<nt def="NT-S">S</nt>? '>'</rhs>
+<nt def="NT-S">S</nt>? '&gt;'</rhs>
 </prod>
     </obj>
   </item>
@@ -71,7 +71,7 @@ surrogate blocks, FFFE, and FFFF.</com> </prod>
 <prod id="NT-PEDecl"><lhs>PEDecl</lhs>
 <rhs>'&lt;!ENTITY' <nt def="NT-S">S</nt> '%' <nt def="NT-S">S</nt> 
 <nt def="NT-Name">Name</nt> <nt def="NT-S">S</nt> 
-<nt def="NT-PEDef">PEDef</nt> <nt def="NT-S">S</nt>? '>'</rhs>
+<nt def="NT-PEDef">PEDef</nt> <nt def="NT-S">S</nt>? '&gt;'</rhs>
 <!--<com>Parameter entities</com>-->
 </prod>
     </obj>
@@ -122,7 +122,7 @@ surrogate blocks, FFFE, and FFFF.</com> </prod>
 <nt def="NT-S">S</nt> 
 (<nt def="NT-ExternalID">ExternalID</nt> | 
 <nt def="NT-PublicID">PublicID</nt>)
-<nt def="NT-S">S</nt>? '>'</rhs></prod>
+<nt def="NT-S">S</nt>? '&gt;'</rhs></prod>
     </obj>
   </item>
   <item index='9'>

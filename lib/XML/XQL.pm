@@ -75,7 +75,7 @@ use vars qw( @EXPORT $VERSION
 
 BEGIN
 {
-    $VERSION = '0.63';
+    $VERSION = '0.64';
 
     die "XML::XQL is already used/required" if defined $Included;
     $Included = 1;
@@ -509,7 +509,7 @@ sub tput
     # available.
     if ($^O =~ /Win|MacOS/)
     {
-	return undef;
+	return "";
     }
     else
     {
@@ -527,7 +527,8 @@ $ContextStart = tput ('smul') || ">>";	# smul: underline on
 $ContextEnd = tput ('rmul') || "<<";	# rmul: underline off
 # Used for making the significant keyword of a subexpression bold, e.g. "$and$"
 $BoldOn = tput ('bold') || "";
-$BoldOff = tput ('rmul') . tput ('smul') || "";
+$BoldOff = tput ('rmul') || "";
+$BoldOff .= tput ('smul') || "";
 # rmul reverts the string back to normal text, smul makes it underlined again, 
 # so the rest of the subexpresion will be underlined.
 

@@ -17,13 +17,15 @@ The other code should be considered alpha code.
 See the documentation in the html/ directory. It can be found online at
 http://www.erols.com/enno
 
-For bug reports or suggestions send email to enno@att.com
+For bug reports or suggestions send email to tjmather@tjmather.com
 
 ========= DEPENDENCIES =========================================================
 
 You need the following modules (all available at CPAN):
 
-- XML::Parser (At least version 2.23, I'm using 2.27)
+- XML::Parser (At least version 2.28, 2.30 recommended)
+	 If you are using XML::Parser 2.27, then you should download
+	libxml-enno-1.02 from your local CPAN mirror.
 - Parse::Yapp (Used by XML::XQL. I'm using 0.16)
 - Date::Manip (Used by XML::XQL::Date. 
 	       I'm using 5.33. I know 5.20 or less doesn't work)
